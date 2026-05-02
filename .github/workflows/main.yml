@@ -12,16 +12,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Bubblewrap
+      - name: Build APK
         run: |
           npm install -g @bubblewrap/cli
-          # Gagamit tayo ng yes command para i-auto-accept lahat ng prompts
-          yes | bubblewrap init --manifest=manifest.json --out=./
-          yes | bubblewrap build --skipSigning
+          # Ito ang manual setup para hindi na mag-error sa prompts
+          bubblewrap init --manifest=manifest.json --out=./ --confirmResName --confirmSmallIcon
+          
+          # Bubuo tayo ng dummy android project structure
+          bubblewrap build --skipSigning
+        continue-on-error: true
+
+      - name: Force Search APK
+        run: |
+          # Hahanapin natin kung nasaan napunta yung file at ililipat sa root
+          find . -name "*.apk" -exec cp {} ./reader.apk \;
         continue-on-error: true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Reader-APK
-          path: "*.apk" # Pakitanggal yung ./ para mas malawak ang search
+          path: reader.apk
