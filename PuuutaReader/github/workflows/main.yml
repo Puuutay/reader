@@ -1,0 +1,22 @@
+name: Build APK
+on: push
+jobs:
+  android-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Build with Bubblewrap
+        run: |
+          npm install -g @bubblewrap/cli
+          bubblewrap init --manifest=manifest.json --out=./ --confirmResName --confirmSmallIcon
+          bubblewrap build --skipSigning
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: Reader-APK
+          path: ./*.apk
