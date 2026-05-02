@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puuuta Reader Pro</title>
+    <style>
+        :root { --primary: #00ff00; --bg: #0a0a0a; --card: #151515; }
+        body { font-family: 'Courier New', monospace; background: var(--bg); color: #fff; margin: 0; }
+        #setup { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px; }
+        .l-btn { background: #111; color: var(--primary); border: 1px solid var(--primary); padding: 15px; border-radius: 8px; cursor: pointer; min-width: 140px; }
+        #app { display: none; background: var(--card); border-radius: 15px; padding: 15px; border: 2px solid var(--primary); width: 90%; max-width: 320px; margin: 20px auto; box-shadow: 0 0 15px rgba(0,255,0,0.3); position: relative; }
+        .tag { font-size: 10px; background: var(--primary); color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        textarea { width: 100%; height: 150px; background: #000; color: var(--primary); border: 1px solid #333; border-radius: 8px; padding: 10px; margin-top: 10px; resize: none; box-sizing: border-box; }
+        .row { display: flex; gap: 10px; margin: 10px 0; }
+        button.play { background: var(--primary); color: #000; flex: 2; padding: 12px; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        button.stop { background: #222; color: #ff4444; flex: 1; border: 1px solid #444; border-radius: 8px; cursor: pointer; }
+        .change { font-size: 10px; color: #666; cursor: pointer; background: none; border: none; text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div id="setup">
+    <h3 style="color: var(--primary)">SELECT LANGUAGE</h3>
+    <div class="grid">
+        <button class="l-btn" onclick="start('fil-PH', 'FILIPINO')">FILIPINO</button>
+        <button class="l-btn" onclick="start('en-US', 'ENGLISH')">ENGLISH</button>
+        <button class="l-btn" onclick="start('no-NO', 'NORWEGIAN')">NORWEGIAN</button>
+        <button class="l-btn" onclick="start('da-DK', 'DANISH')">DANISH</button>
+        <button class="l-btn" onclick="start('tr-TR', 'TURKISH')">TURKISH</button>
+        <button class="l-btn" onclick="start('sv-SE', 'SWEDISH')">SWEDISH</button>
+        <button class="l-btn" onclick="start('fi-FI', 'FINNISH')">FINNISH</button>
+        <button class="l-btn" onclick="start('de-DE', 'GERMAN')">GERMAN</button>
+    </div>
+</div>
+<div id="app">
+    <div style="display: flex; justify-content: space-between;">
+        <span class="tag" id="langName">FILIPINO</span>
+        <button class="change" onclick="location.reload()">CHANGE</button>
+    </div>
+    <textarea id="txt" placeholder="I-paste ang text dito..."></textarea>
+    <div class="row">
+        <div style="flex:1"><label style="font-size:9px">SPEED</label><input type="range" id="r" min="0.5" max="2" value="1" step="0.1" style="width:100%"></div>
+        <div style="flex:1"><label style="font-size:9px">PITCH</label><input type="range" id="p" min="0" max="2" value="1" step="0.1" style="width:100%"></div>
+    </div>
+    <div class="row"><button class="play" onclick="read()">READ TEXT</button><button class="stop" onclick="window.speechSynthesis.cancel()">STOP</button></div>
+</div>
+<script>
+    let code = '';
+    function start(c, n) {
+        code = c; document.getElementById('langName').innerText = n;
+        document.getElementById('setup').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+    }
+    function read() {
+        window.speechSynthesis.cancel();
+        const m = new SpeechSynthesisUtterance(document.getElementById('txt').value);
+        m.lang = code; m.rate = document.getElementById('r').value; m.pitch = document.getElementById('p').value;
+        window.speechSynthesis.speak(m);
+    }
+</script>
+</body>
+</html>
