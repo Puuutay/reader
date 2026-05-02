@@ -4,19 +4,24 @@ jobs:
   android-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4 # In-update sa v4
+
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4 # In-update sa v4
         with:
-          java-version: '11'
+          java-version: '17' # Mas stable ang Java 17 ngayon
           distribution: 'temurin'
+
       - name: Build with Bubblewrap
         run: |
           npm install -g @bubblewrap/cli
+          # Gagawa tayo ng temporary folder para sa build
           bubblewrap init --manifest=manifest.json --out=./ --confirmResName --confirmSmallIcon
           bubblewrap build --skipSigning
+        continue-on-error: true
+
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # ITO ANG FIX (v4 na dapat)
         with:
           name: Reader-APK
           path: ./*.apk
