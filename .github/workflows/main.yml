@@ -6,30 +6,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          node-version: '18'
 
-      - name: Build APK
+      - name: Build APK via Tool
         run: |
+          # Gagamit tayo ng instant converter
           npm install -g @bubblewrap/cli
-          # Ito ang manual setup para hindi na mag-error sa prompts
-          bubblewrap init --manifest=manifest.json --out=./ --confirmResName --confirmSmallIcon
           
-          # Bubuo tayo ng dummy android project structure
-          bubblewrap build --skipSigning
-        continue-on-error: true
+          # Gagawa tayo ng dummy folder para pilitin ang build
+          mkdir build && cp index.html manifest.json build/
+          
+          # Ito ang command na hindi hihingi ng kahit anong input
+          yes | bubblewrap init --manifest=manifest.json --out=./ --confirmResName
+          yes | bubblewrap build --skipSigning || true
 
-      - name: Force Search APK
+      - name: Final Search
         run: |
-          # Hahanapin natin kung nasaan napunta yung file at ililipat sa root
-          find . -name "*.apk" -exec cp {} ./reader.apk \;
+          # Hahanapin natin kahit anong .apk na nabuo at papangalanang final.apk
+          find . -name "*.apk" -exec mv {} final.apk \;
         continue-on-error: true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Reader-APK
-          path: reader.apk
+          name: PuuutaReader-Installer
+          path: final.apk
