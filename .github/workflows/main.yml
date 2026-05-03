@@ -1,36 +1,29 @@
 name: Build APK
 on: push
+
 jobs:
   android-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          node-version: '18'
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Build APK via Tool
-        run: |
-          # Gagamit tayo ng instant converter
-          npm install -g @bubblewrap/cli
-          
-          # Gagawa tayo ng dummy folder para pilitin ang build
-          mkdir build && cp index.html manifest.json build/
-          
-          # Ito ang command na hindi hihingi ng kahit anong input
-          yes | bubblewrap init --manifest=manifest.json --out=./ --confirmResName
-          yes | bubblewrap build --skipSigning || true
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Final Search
-        run: |
-          # Hahanapin natin kahit anong .apk na nabuo at papangalanang final.apk
-          find . -name "*.apk" -exec mv {} final.apk \;
-        continue-on-error: true
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: PuuutaReader-Installer
-          path: final.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
