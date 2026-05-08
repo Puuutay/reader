@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PuuutaReader" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorPrimary">#00ff00</item>
+        <item name="colorPrimaryVariant">#00b300</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">#0a0a0a</item>
+        <item name="colorSecondaryVariant">#0a0a0a</item>
+        <item name="colorOnSecondary">#ffffff</item>
+        <item name="android:statusBarColor">#0a0a0a</item>
+    </style>
+</resources>
