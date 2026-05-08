@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PuuutaReader</string>
+    <string name="accessibility_service_description">PuuutaReader reads highlighted text aloud in any app using text-to-speech.</string>
+</resources>
