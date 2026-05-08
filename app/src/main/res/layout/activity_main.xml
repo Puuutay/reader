@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0a0a0a">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PuuutaReader"
+            android:textColor="#00ff00"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screen Reader for Any App"
+            android:textColor="#888888"
+            android:textSize="14sp"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:id="@+id/tvAccessibilityStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="● Accessibility: OFF"
+            android:textColor="#ff4444"
+            android:textSize="15sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/tvOverlayStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="● Overlay: OFF"
+            android:textColor="#ff4444"
+            android:textSize="15sp"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btnEnableAccessibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Enable Accessibility Service"
+            android:backgroundTint="#00ff00"
+            android:textColor="#000000"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnEnableOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2. Enable Overlay Permission"
+            android:backgroundTint="#00aa00"
+            android:textColor="#000000"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnStartBubble"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Start Floating Bubble"
+            android:backgroundTint="#007700"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Default Language:"
+            android:textColor="#cccccc"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:id="@+id/tvSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Speech Speed: 1.0x"
+            android:textColor="#cccccc"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBarSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="20"
+            android:progress="10"
+            android:progressTint="#00ff00"
+            android:thumbTint="#00ff00"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="How to use:\n1. Enable Accessibility Service\n2. Enable Overlay Permission\n3. Start Floating Bubble\n4. Go to any app\n5. Highlight any text\n6. Tap the green bubble → Read!"
+            android:textColor="#666666"
+            android:textSize="13sp"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="24dp"/>
+
+    </LinearLayout>
+</ScrollView>
