@@ -1,0 +1,2 @@
+rootProject.name = "PuuutaReader"
+include ':app'
